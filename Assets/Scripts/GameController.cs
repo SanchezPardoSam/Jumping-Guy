@@ -10,6 +10,10 @@ public class GameController : MonoBehaviour
     public  float parallaxSpeed = 0.02f;
     public RawImage backgroung;
     public RawImage plataform;
+    public GameObject uiIdle;
+
+    public enum GameState {Idle,Playing};
+    public GameState gameState = GameState.Idle;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,8 +23,17 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float finalSpeed = parallaxSpeed * Time.deltaTime;
-        backgroung.uvRect = new Rect(backgroung.uvRect.x + finalSpeed,0f,1f,1f);
-        plataform.uvRect = new Rect(plataform.uvRect.x + finalSpeed ,0f,1f,1f);
+        if(gameState == GameState.Idle&&Input.GetKeyDown("up")|| Input.GetMouseButtonDown(0)){
+            gameState = GameState.Playing;
+            uiIdle.SetActive(false);
+        }
+        else if(gameState == GameState.Playing){
+            Parallax();
+        }   
     }
+    void Parallax(){
+        float finalSpeed = parallaxSpeed * Time.deltaTime;
+            backgroung.uvRect = new Rect(backgroung.uvRect.x + finalSpeed,0f,1f,1f);
+            plataform.uvRect = new Rect(plataform.uvRect.x + finalSpeed *4,0f,1f,1f);
+    } 
 }
