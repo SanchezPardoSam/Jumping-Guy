@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update(){
         bool gamePlaying = game.GetComponent<GameController>().gameState == GameState.Playing;
-        if(gamePlaying && Input.GetKeyDown("up")|| Input.GetMouseButtonDown(0)){
+        if(gamePlaying && (Input.GetKeyDown("up")|| Input.GetMouseButtonDown(0))){
             UpdateState("PlayerJump");
         }
     }
@@ -31,5 +31,8 @@ public class PlayerController : MonoBehaviour
            game.GetComponent<GameController>().gameState = GameState.Ended;
            enemyGenerator.SendMessage("CancelGenerator",true);
         }        
+    }
+    void GameReady(){
+        game.GetComponent<GameController>().gameState = GameState.Ready;
     }
 }

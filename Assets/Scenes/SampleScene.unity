@@ -1146,6 +1146,6 @@ MonoBehaviour:
   backgroung: {fileID: 278996609}
   plataform: {fileID: 1726910681}
   uiIdle: {fileID: 1715914214}
-  gameState: 2
+  gameState: 0
   player: {fileID: 1231743073}
   enemyGenerator: {fileID: 1425992648}
