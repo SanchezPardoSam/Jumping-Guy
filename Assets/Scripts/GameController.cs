@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum GameState {Idle,Playing,Ended};
 public class GameController : MonoBehaviour
 {
 
@@ -12,14 +13,14 @@ public class GameController : MonoBehaviour
     public RawImage plataform;
     public GameObject uiIdle;
 
-    public enum GameState {Idle,Playing};
+    
     public GameState gameState = GameState.Idle;
 
     public GameObject player;
+    public GameObject enemyGenerator;
     // Start is called before the first frame update
     void Start()
-    {
-        
+    {        
     }
 
     // Update is called once per frame
@@ -27,13 +28,16 @@ public class GameController : MonoBehaviour
     {
         if(gameState == GameState.Idle&&Input.GetKeyDown("up")|| Input.GetMouseButtonDown(0)){
             gameState = GameState.Playing;
-            uiIdle.SetActive(false);
-            
+            uiIdle.SetActive(false);            
             player.SendMessage("UpdateState","PlayerRun");
+            enemyGenerator.SendMessage("StartGenerator");
         }
         else if(gameState == GameState.Playing){
             Parallax();
         }   
+        else if(gameState == GameState.Ended){
+            //todo
+        }  
     }
     void Parallax(){
         float finalSpeed = parallaxSpeed * Time.deltaTime;
