@@ -15,14 +15,17 @@ public class GameController : MonoBehaviour
     public RawImage plataform;
     public GameObject uiIdle;
 
-    
+    public float scaleTime = 8f;
+    public float scaleInc = .125f;
     public GameState gameState = GameState.Idle;
 
     public GameObject player;
     public GameObject enemyGenerator;
+
+    private AudioSource musicPlayer;
     // Start is called before the first frame update
-    void Start()
-    {        
+    void Start(){       
+        musicPlayer=GetComponent<AudioSource>(); 
     }
 
     // Update is called once per frame
@@ -33,7 +36,10 @@ public class GameController : MonoBehaviour
             gameState = GameState.Playing;
             uiIdle.SetActive(false);            
             player.SendMessage("UpdateState","PlayerRun");
+            player.SendMessage("DustPlay");
             enemyGenerator.SendMessage("StartGenerator");
+            musicPlayer.Play();
+            InvokeRepeating("GameTimeScale",scaleTime,scaleTime);      
         }
         else if(gameState == GameState.Playing){
             Parallax();
@@ -50,6 +56,17 @@ public class GameController : MonoBehaviour
             plataform.uvRect = new Rect(plataform.uvRect.x + finalSpeed *4,0f,1f,1f);
     } 
     public void RestartGame(){
+        ResetTimeScale();
         SceneManager.LoadScene("SampleScene");
+    }
+    void GameTimeScale(){
+        Time.timeScale += scaleInc;
+
+        Debug.Log("Ritmo incrementado: "+ Time.timeScale.ToString());
+    }
+    public void ResetTimeScale(float newTimeScale = 1f){
+        CancelInvoke("GameTimeScale");
+        Time.timeScale = newTimeScale;
+        Debug.Log("Ritmo Reestablecido: "+ Time.timeScale.ToString());
     }
 }

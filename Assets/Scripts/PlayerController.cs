@@ -6,19 +6,39 @@ public class PlayerController : MonoBehaviour
 {
     public  GameObject game;
     public  GameObject enemyGenerator;
+
+
+
+    public AudioClip jumpClip;
+    public AudioClip  dieClip;
+
+    public ParticleSystem dust;
     private Animator animator;
+    private AudioSource audioPlayer;
+    private float startY;
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        audioPlayer=GetComponent<AudioSource>(); 
+        startY = transform.position.y;
     }
 
     // Update is called once per frame
     void Update(){
+        bool isGrounded = transform.position.y == startY;
+        bool userAction = (Input.GetKeyDown("up")|| Input.GetMouseButtonDown(0));
         bool gamePlaying = game.GetComponent<GameController>().gameState == GameState.Playing;
-        if(gamePlaying && (Input.GetKeyDown("up")|| Input.GetMouseButtonDown(0))){
+        if(gamePlaying && userAction){
             UpdateState("PlayerJump");
+            if(isGrounded){
+                audioPlayer.clip = jumpClip;
+                audioPlayer.Play();
+            }
+            
+                  
         }
+        
     }
     public void UpdateState(string state = null){
         if(state != null){
@@ -30,9 +50,23 @@ public class PlayerController : MonoBehaviour
            UpdateState("PlayerDie");
            game.GetComponent<GameController>().gameState = GameState.Ended;
            enemyGenerator.SendMessage("CancelGenerator",true);
+           game.SendMessage("ResetTimeScale",0.5f);          
+
+
+           game.GetComponent<AudioSource>().Stop(); 
+           audioPlayer.clip = dieClip;
+           audioPlayer.Play();
+           DustStop();
         }        
     }
     void GameReady(){
         game.GetComponent<GameController>().gameState = GameState.Ready;
+    }
+    
+    void DustPlay(){
+        dust.Play();
+    }
+    void DustStop(){
+        dust.Stop();
     }
 }
