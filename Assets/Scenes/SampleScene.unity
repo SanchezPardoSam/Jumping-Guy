@@ -343,14 +343,13 @@ GameObject:
   - component: {fileID: 764007114}
   - component: {fileID: 764007117}
   - component: {fileID: 764007116}
-  - component: {fileID: 764007115}
   m_Layer: 5
-  m_Name: Info
+  m_Name: Record
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &764007114
 RectTransform:
   m_ObjectHideFlags: 0
@@ -367,28 +366,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.0002, y: 29.513}
+  m_AnchoredPosition: {x: -27, y: 86}
   m_SizeDelta: {x: 477.9383, y: 59.025894}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &764007115
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 764007113}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ca511ea3daba08a41b7f42d6f135372b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &764007116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,7 +401,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press UP/CLICK To Play
+  m_Text: 'Best: '
 --- !u!222 &764007117
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6221,6 +6201,7 @@ MonoBehaviour:
   scaleTime: 8
   scaleInc: 0.125
   pointsText: {fileID: 858975589}
+  recordText: {fileID: 764007116}
   gameState: 0
   player: {fileID: 1231743073}
   enemyGenerator: {fileID: 1425992648}
